@@ -132,7 +132,7 @@ for(let key in keyPaths){
     document.addEventListener(`stopKey${keyPaths[key]}`, (e) => {
         easeOutStop(audio, key)
     })
-    soundEvents[key] = {playEvent, stopEvent}; 
+    soundEvents[key] = {playEvent, stopEvent, isPlaying : false}; 
 }
 
 export default soundEvents;
