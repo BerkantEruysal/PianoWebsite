@@ -1,10 +1,29 @@
 import soundEvents from "./sounds.js";
 
 let counter = 0;
-var origin = 28
-let listenedKeys = "q2we4r5ty7u8"
+var origin = 17;
+let listenedKeys = "q2we4r5ty7u8ı9op*ğ-ü"
 
 function onKeyDown(e){
+    if(e.keyCode == 107){
+        if(origin + 12 > 88){
+            origin = 88;
+        }else{
+            origin += 12;
+        }
+        scrollToTarget()
+        return
+    }
+    if(e.keyCode == 109){
+        if(origin - 12 < 0){
+            origin = 0
+        }else{
+            origin -= 12;
+        }
+        scrollToTarget()
+        return
+    }
+
     if(e.repeat){return}
     const keyIndex = listenedKeys.indexOf(e.key.toLowerCase());
     if(keyIndex != -1){
@@ -13,27 +32,9 @@ function onKeyDown(e){
         events.isPlaying = true
         document.dispatchEvent(events.playEvent)
     }
-
-    if(e.key == "+"){
-        if(origin + 7 > 88){
-            origin = 88;
-        }else{
-            origin += 7;
-        }
-        return
-    }
-    if(e.key == "-"){
-        if(origin - 7 < 0){
-            origin = 0
-        }else{
-            origin -= 7;
-        }
-        return
-    }
 }
 
 function onKeyUp(e){
-    console.log(e.key)
     const keyIndex = listenedKeys.indexOf(e.key.toLowerCase());
     if(keyIndex != -1){
         const events = soundEvents[Object.keys(soundEvents)[origin + keyIndex]];
@@ -41,6 +42,7 @@ function onKeyUp(e){
         document.dispatchEvent(events.stopEvent)
     }
 }
+
 
 document.addEventListener('keydown', onKeyDown)
 
@@ -59,8 +61,29 @@ Object.keys(soundEvents).map( (key,index) => {
         keyElement.content.firstChild.classList.add("a")
     } 
     tempKey = key
+
+    keyElement.content.firstChild.addEventListener('mousedown', () => {document.dispatchEvent(soundEvents[key].playEvent)});
+    keyElement.content.firstChild.addEventListener('mouseup', () => {document.dispatchEvent(soundEvents[key].stopEvent)});
+    keyElement.content.firstChild.addEventListener('mouseleave', () => {document.dispatchEvent(soundEvents[key].stopEvent)});
     keyboardElement.appendChild(keyElement.content.firstChild)
 })
+
+function Position(obj){
+    var currenttop = 0;
+    if (obj.offsetParent){
+     do {
+      currenttop += obj.offsetTop;
+    }while ((obj = obj.offsetParent));
+     return [currenttop];
+    }
+   }
+
+function scrollToTarget(){
+    const targetKey = document.querySelector(`div[data-key=${Object.keys(soundEvents)[origin]}]`)
+    keyboardElement.parentElement.scroll(targetKey.offsetLeft, 0)
+}
+
+scrollToTarget()
 
 
 

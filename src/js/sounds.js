@@ -122,7 +122,9 @@ for(let key in keyPaths){
     const audio = new Audio(`${soundFolderPath}${keyPaths[key]}`);
     const playEvent = new Event(`playKey${keyPaths[key]}`);
     const stopEvent = new Event(`stopKey${keyPaths[key]}`);
+    soundEvents[key] = {playEvent, stopEvent, isPlaying : false}; 
     document.addEventListener(`playKey${keyPaths[key]}`, (e) => {
+            document.querySelector(`div[data-key=${key}]`).classList.add("active")
             clearInterval(activeIntervals[key])
             audio.pause()
             audio.volume = 1
@@ -130,9 +132,10 @@ for(let key in keyPaths){
             audio.play()
     })
     document.addEventListener(`stopKey${keyPaths[key]}`, (e) => {
+        document.querySelector(`div[data-key=${key}]`).classList.remove("active")
+        
         easeOutStop(audio, key)
     })
-    soundEvents[key] = {playEvent, stopEvent, isPlaying : false}; 
 }
 
 export default soundEvents;

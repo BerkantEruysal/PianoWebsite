@@ -61,6 +61,7 @@ html{
     width: 100%;
     overflow-x: scroll;
     padding-bottom: 10px;
+    scroll-behavior: smooth;
 }
 
 .white-key{
@@ -120,3 +121,10 @@ html{
     color: #ccc;
 }
 
+.keyboard, .keyboard *{
+        user-select: none;
+        -moz-user-select: none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -o-user-select: none;
+}
