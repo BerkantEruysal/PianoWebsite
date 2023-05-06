@@ -1,0 +1,1 @@
+const soundFolderPath = "/src/static/notes"
