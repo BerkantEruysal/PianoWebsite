@@ -1,7 +1,7 @@
 import soundEvents from "./sounds.js";
 
 let counter = 0;
-var origin = 17;
+var origin = 36;
 let listenedKeys = "q2we4r5ty7u8ı9op*ğ-ü"
 
 function onKeyDown(e){
