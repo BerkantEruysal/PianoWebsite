@@ -2,10 +2,10 @@ import soundEvents from "./sounds.js";
 
 let counter = 0;
 var origin = 36;
-let listenedKeys = "q2we4r5ty7u8ı9op*ğ-ü"
+let listenedKeys = "q2w3e4rt6y7uı9o0p*ğü"
 
 function onKeyDown(e){
-    if(e.keyCode == 107){
+    if(e.keyCode == 83){
         if(origin + 12 > 88){
             origin = 88;
         }else{
@@ -14,7 +14,7 @@ function onKeyDown(e){
         scrollToTarget()
         return
     }
-    if(e.keyCode == 109){
+    if(e.keyCode == 65){
         if(origin - 12 < 0){
             origin = 0
         }else{
@@ -27,7 +27,7 @@ function onKeyDown(e){
     if(e.repeat){return}
     const keyIndex = listenedKeys.indexOf(e.key.toLowerCase());
     if(keyIndex != -1){
-        const events = soundEvents[Object.keys(soundEvents)[origin + keyIndex]];
+        const events = soundEvents[Object.keys(soundEvents)[origin + keyIndex + 8]];
         if(events.isPlaying){return}
         events.isPlaying = true
         document.dispatchEvent(events.playEvent)
@@ -37,7 +37,7 @@ function onKeyDown(e){
 function onKeyUp(e){
     const keyIndex = listenedKeys.indexOf(e.key.toLowerCase());
     if(keyIndex != -1){
-        const events = soundEvents[Object.keys(soundEvents)[origin + keyIndex]];
+        const events = soundEvents[Object.keys(soundEvents)[origin + keyIndex + 8]];
         events.isPlaying = false
         document.dispatchEvent(events.stopEvent)
     }
