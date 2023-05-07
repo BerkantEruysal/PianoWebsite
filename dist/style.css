@@ -128,3 +128,22 @@ html{
         -webkit-user-select: none;
         -o-user-select: none;
 }
+
+#tools{
+    width: 100%;
+    background-color: red;
+    flex-grow: 1;
+    display: flex;
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#side-bar{
+    width: 100px;
+    height: 100%;
+    background-color: blue;
+}
