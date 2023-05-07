@@ -1,4 +1,5 @@
 import soundEvents from "./sounds.js";
+import ToolImage from "./ToolImageClass.js"
 
 let counter = 0;
 var origin = 36;
@@ -68,22 +69,28 @@ Object.keys(soundEvents).map( (key,index) => {
     keyboardElement.appendChild(keyElement.content.firstChild)
 })
 
-function Position(obj){
-    var currenttop = 0;
-    if (obj.offsetParent){
-     do {
-      currenttop += obj.offsetTop;
-    }while ((obj = obj.offsetParent));
-     return [currenttop];
-    }
-   }
-
 function scrollToTarget(){
     const targetKey = document.querySelector(`div[data-key=${Object.keys(soundEvents)[origin]}]`)
     keyboardElement.parentElement.scroll(targetKey.offsetLeft, 0)
 }
 
 scrollToTarget()
+
+
+const imageInput = document.getElementById("image-input")
+const galleryElement = document.getElementById("gallery")
+const toolImageInstances = []
+
+
+imageInput.addEventListener('change', () => {
+    const images = imageInput.files;
+    for(let index = 0; index < images.length; index++ ) {
+        const image = images[index]
+        const toolImage = new ToolImage(image, index, galleryElement)
+        toolImageInstances.push(toolImage)
+    }
+    toolImageInstances[0].appendToDocument(galleryElement)
+})
 
 
 
